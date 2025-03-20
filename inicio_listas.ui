@@ -60,9 +60,78 @@
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>480</width>
+           <width>3</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="bt_nuevoarticulo">
+         <property name="text">
+          <string>Nuevo Artículo</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>3</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="bt_editararticulo">
+         <property name="text">
+          <string>Editar Artículo</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>3</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="bt_borrararticulo">
+         <property name="text">
+          <string>Borrar Artículo</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
            <height>20</height>
           </size>
          </property>
@@ -96,13 +165,61 @@
     <property name="title">
      <string>Articulos</string>
     </property>
-    <addaction name="actionArticulos"/>
+    <addaction name="action_articulos"/>
+    <addaction name="action_editararticulo"/>
+    <addaction name="action_nuevoarticulo"/>
+    <addaction name="action_borrararticulo"/>
    </widget>
    <addaction name="menuArticulos"/>
   </widget>
-  <action name="actionArticulos">
+  <action name="actionddd">
    <property name="text">
-    <string>Articulos</string>
+    <string>ddd</string>
+   </property>
+  </action>
+  <action name="actionNuevo_Articulo">
+   <property name="text">
+    <string>Nuevo Artículo</string>
+   </property>
+  </action>
+  <action name="actionEditar_Articulo">
+   <property name="text">
+    <string>Editar Artículo</string>
+   </property>
+  </action>
+  <action name="actionBorrar_Articulo">
+   <property name="text">
+    <string>Borrar Artículo</string>
+   </property>
+  </action>
+  <action name="actionArticulos_2">
+   <property name="text">
+    <string>Artículos</string>
+   </property>
+  </action>
+  <action name="action_editararticulo">
+   <property name="text">
+    <string>Editar Artículo</string>
+   </property>
+  </action>
+  <action name="action_borrararticulo">
+   <property name="text">
+    <string>Borrar Artículo</string>
+   </property>
+  </action>
+  <action name="actiondd">
+   <property name="text">
+    <string>dd</string>
+   </property>
+  </action>
+  <action name="action_articulos">
+   <property name="text">
+    <string>Artículos</string>
+   </property>
+  </action>
+  <action name="action_nuevoarticulo">
+   <property name="text">
+    <string>Nuevo Artículo</string>
    </property>
   </action>
  </widget>

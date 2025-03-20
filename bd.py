@@ -24,14 +24,16 @@ class bd:
         tb_datos.setHeaderLabels(['Artículos'])
         tb_datos.setColumnCount(1)
         tb_datos.resizeColumnToContents(0)
-        
+        tb_datos.itemClicked.connect(bd.onItemClicked)
 
         level = 0
         for registro in datos:
             uno = QTreeWidgetItem(tb_datos)
+            
             uno.setText(0,str(registro[0])+".- "+str(registro[1]))
-#            uno.setText(1,str(registro[1]))
-            #uno.isExpanded(True)
+            uno.setText(1,str(registro[0]))
+            #uno.setEditable(True)
+
             tb_datos.insertTopLevelItem(level,uno)
             
             bd.tienehijos(tb_datos,level,uno,str(registro[0]))
@@ -43,6 +45,7 @@ class bd:
         for registro in datos:
             dos = QTreeWidgetItem(uno)
             dos.setText(0,str(registro[0])+".- "+str(registro[1]))
+            dos.setText(1,str(registro[0]))
             #dos.setText(1,str(registro[1]))
             
             uno.addChild(dos)
@@ -51,7 +54,22 @@ class bd:
 
 
      
+    def onItemClicked(item):
         
+        print(item.text(0))
+        print(item.text(1))
+        
+        
+
+    def act_nuevoarticulo(self):
+        print("nuevo articulo")
+        print(self.sql)
+    
+    def act_editararticulo(self):
+        print("editar articulo")
+
+    def act_borrararticulo(self):
+        print("borrar articulo")
 
             
             

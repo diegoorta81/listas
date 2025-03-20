@@ -28,12 +28,8 @@ class Db_SQLITE:
             self.cursor.close()
             self.conexion.close()
 
-
-        #cursor = conexion.execute("SELECT DATE('now')")
-        #cursor = conexion.execute("""SELECT name FROM sqlite_master WHERE type='table';""")
-        #for fila in cursor:
-        #print(fila)
-        #conexion.close()
+    
+    
     
     
 

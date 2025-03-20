@@ -18,19 +18,39 @@ class Inicio_listas(QtWidgets.QMainWindow):
         self.bt_articulos.setText("Artículos")
         self.bt_articulos.clicked.connect(self.act_articulos)
 
-        self.act = self.findChild(QAction, 'actionArticulos')
+        self.act = self.findChild(QAction, 'action_articulos')
         self.act.triggered.connect(self.act_articulos)
         self.hidden = True
-        
-        
 
+        self.bt_nuevoarticulo = self.findChild(QtWidgets.QPushButton, 'bt_nuevoarticulo')
+        self.bt_nuevoarticulo.clicked.connect(bd.act_nuevoarticulo)
         
+        self.action_nuevoarticulo = self.findChild(QAction, 'action_nuevoarticulo')
+        self.action_nuevoarticulo.triggered.connect(bd.act_nuevoarticulo)
 
-        #self.tree_apuntes = self.findChild(QtWidgets.QTreeWidget, 'tree_cuentas')
-        #self.apuntes = bd.ejecuta()
-
-        #bd.refresca(self.tree_apuntes,self.apuntes)
+        self.bt_editararticulo = self.findChild(QtWidgets.QPushButton, 'bt_editararticulo')
+        self.bt_editararticulo.clicked.connect(bd.act_editararticulo)
         
+        self.action_editararticulo = self.findChild(QAction, 'action_editararticulo')
+        self.action_editararticulo.triggered.connect(bd.act_editararticulo)
+
+        self.bt_borrararticulo = self.findChild(QtWidgets.QPushButton, 'bt_borrararticulo')
+        self.bt_borrararticulo.clicked.connect(bd.act_borrararticulo)
+        
+        self.action_borrararticulo = self.findChild(QAction, 'action_borrararticulo')
+        self.action_borrararticulo.triggered.connect(bd.act_borrararticulo)
+
+        self.action_borrararticulo.setEnabled(False)
+        self.action_editararticulo.setEnabled(False)
+        self.action_nuevoarticulo.setEnabled(False)
+        self.bt_borrararticulo.setEnabled(False)
+        self.bt_editararticulo.setEnabled(False)
+        self.bt_nuevoarticulo.setEnabled(False)
+
+
+    
+
+
     def act_articulos(self):
         self.frame_arbol_superior = self.fr_inferior.findChild(QFrame, 'frame_arbol_superior')
         #self.fr_inferior = self.findChild(QFrame, 'fr_inferior')
@@ -43,6 +63,14 @@ class Inicio_listas(QtWidgets.QMainWindow):
 
             self.tree_apuntes = self.findChild(QtWidgets.QTreeWidget, 'tree_cuentas')
             self.apuntes = bd.ejecuta()
+            self.bt_articulos.setText("Cerrar Artículos")
+            self.act.setText("Cerrar Artículos")
+            #self.action_borrararticulo.setEnabled(True)
+            #self.action_editararticulo.setEnabled(True)
+            #self.action_nuevoarticulo.setEnabled(True)
+            #self.bt_borrararticulo.setEnabled(True)
+            #self.bt_editararticulo.setEnabled(True)
+            #self.bt_nuevoarticulo.setEnabled(True)
 
             bd.refresca(self.tree_apuntes,self.apuntes)
         else:
@@ -50,9 +78,25 @@ class Inicio_listas(QtWidgets.QMainWindow):
             if (self.hidden==True):
                 self.frame_arbol_superior.hide()
                 self.hidden = False
+                self.bt_articulos.setText("Artículos")
+                self.act.setText("Artículos")
+                self.action_borrararticulo.setEnabled(False)
+                self.action_editararticulo.setEnabled(False)
+                self.action_nuevoarticulo.setEnabled(False)
+                self.bt_borrararticulo.setEnabled(False)
+                self.bt_editararticulo.setEnabled(False)
+                self.bt_nuevoarticulo.setEnabled(False)
             else:
                 self.frame_arbol_superior.show()
                 self.hidden = True
+                self.bt_articulos.setText("Cerrar Artículos")
+                self.act.setText("Cerrar Artículos")
+                self.action_borrararticulo.setEnabled(True)
+                self.action_editararticulo.setEnabled(True)
+                self.action_nuevoarticulo.setEnabled(True)
+                self.bt_borrararticulo.setEnabled(True)
+                self.bt_editararticulo.setEnabled(True)
+                self.bt_nuevoarticulo.setEnabled(True)
 
 
             #self.tree_apuntes.deleteLater()
