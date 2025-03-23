@@ -1,9 +1,10 @@
 import sys, os
-from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6 import uic
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QApplication, QWidget, QFrame, QHBoxLayout, QSplitter, QLineEdit, QFrame,QTreeWidget, QTreeWidgetItem,QMainWindow, QAction
+
+from PyQt5 import uic
 from bd import bd
-from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem, QFrame, QWidget
-from PyQt6.QtGui import QAction
+#from PyQt6.QtGui import QAction
 
 class Inicio_listas(QtWidgets.QMainWindow):
 
@@ -48,7 +49,10 @@ class Inicio_listas(QtWidgets.QMainWindow):
         self.bt_nuevoarticulo.setEnabled(False)
 
 
-    
+    def onItemClicked(self):
+        item = self.tree_apuntes.currentItem()
+        
+        bd.onItemClicked(item,self.tablewidget)
 
 
     def act_articulos(self):
@@ -56,28 +60,43 @@ class Inicio_listas(QtWidgets.QMainWindow):
         #self.fr_inferior = self.findChild(QFrame, 'fr_inferior')
         
         if (self.frame_arbol_superior is None):
-            
+                   
             self.fr_inferior = self.findChild(QFrame, 'fr_inferior')
 
             uic.loadUi('w_arbol.ui',self.fr_inferior)
+            self.hbox = self.findChild(QtWidgets.QHBoxLayout, 'horizontalLayout_2')
+
+            self.fr_inferior.setLayout(self.hbox)
+
 
             self.tree_apuntes = self.findChild(QtWidgets.QTreeWidget, 'tree_cuentas')
+            self.tablewidget = self.findChild(QtWidgets.QTableWidget, 'tablewidget')
+            
+            
             self.apuntes = bd.ejecuta()
+            self.splitter1 = QSplitter()
+            self.splitter1.addWidget(self.tree_apuntes)
+            self.splitter1.addWidget(self.tablewidget)
+            self.splitter1.setSizes([300,300])
+            self.hbox.addWidget(self.splitter1)
+            
+
             self.bt_articulos.setText("Cerrar Artículos")
             self.act.setText("Cerrar Artículos")
-            #self.action_borrararticulo.setEnabled(True)
-            #self.action_editararticulo.setEnabled(True)
-            #self.action_nuevoarticulo.setEnabled(True)
-            #self.bt_borrararticulo.setEnabled(True)
-            #self.bt_editararticulo.setEnabled(True)
-            #self.bt_nuevoarticulo.setEnabled(True)
+            self.action_borrararticulo.setEnabled(True)
+            self.action_editararticulo.setEnabled(True)
+            self.action_nuevoarticulo.setEnabled(True)
+            self.bt_borrararticulo.setEnabled(True)
+            self.bt_editararticulo.setEnabled(True)
+            self.bt_nuevoarticulo.setEnabled(True)
 
             bd.refresca(self.tree_apuntes,self.apuntes)
+            self.tree_apuntes.itemClicked.connect(self.onItemClicked)
         else:
             
-            if (self.hidden==True):
-                self.frame_arbol_superior.hide()
-                self.hidden = False
+            if (self.fr_inferior.isVisible()):
+                self.fr_inferior.setVisible(False)
+                #self.hidden = False
                 self.bt_articulos.setText("Artículos")
                 self.act.setText("Artículos")
                 self.action_borrararticulo.setEnabled(False)
@@ -87,7 +106,9 @@ class Inicio_listas(QtWidgets.QMainWindow):
                 self.bt_editararticulo.setEnabled(False)
                 self.bt_nuevoarticulo.setEnabled(False)
             else:
-                self.frame_arbol_superior.show()
+                self.fr_inferior.setVisible(True)
+                #self.frame_arbol_superior.show()
+                #self.frame_arbol_superior.hide()
                 self.hidden = True
                 self.bt_articulos.setText("Cerrar Artículos")
                 self.act.setText("Cerrar Artículos")

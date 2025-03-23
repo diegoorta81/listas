@@ -1,0 +1,46 @@
+from PyQt5.QtWidgets import QApplication, QWidget, QFrame, QHBoxLayout, QSplitter, QLineEdit, QFrame
+import sys
+from PyQt5 import QtGui, QtCore
+#import PySide6 Qti
+
+class Window(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.title= "Mi titulo"
+        self.left = 500
+        self.top = 200
+        self.width = 300
+        self.height = 250
+        
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.left,self.top,self.width,self.height)
+
+        hbox = QHBoxLayout()
+        left = QLineEdit()
+        left.setText("LINE EDIT 1")
+        
+        left.setStyleSheet("background-color: red;border: 2px solid black;") 
+        
+        splitter1 = QSplitter()
+
+        lineedit = QLineEdit()
+        lineedit.setText("LINE EDIT 2")
+
+
+        splitter1.addWidget(left)
+        splitter1.addWidget(lineedit)
+        splitter1.setSizes([300,300])
+
+        
+        
+
+        hbox.addWidget(splitter1)
+
+        self.setLayout(hbox)
+        self.show()
+
+
+App = QApplication(sys.argv)
+window = Window()
+sys.exit(App.exec())

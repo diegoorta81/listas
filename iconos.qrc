@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>chevron-down.svg</file>
+    <file>chevron-left.svg</file>
+    <file>chevron-right.svg</file>
+    <file>chevrons-down.svg</file>
+    <file>check.svg</file>
+  </qresource>
+</RCC>

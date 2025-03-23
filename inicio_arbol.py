@@ -1,8 +1,8 @@
 import sys, os
-from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6 import uic
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import uic
 from bd import bd
-from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem
+from PyQt5.QtWidgets import QTreeWidget, QTreeWidgetItem
 
 class MainWindow(QtWidgets.QMainWindow):
 

@@ -18,6 +18,9 @@
     <property name="spacing">
      <number>0</number>
     </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
     <property name="topMargin">
      <number>0</number>
     </property>
@@ -48,6 +51,21 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
         <widget class="QPushButton" name="bt_articulos">
          <property name="text">
@@ -142,6 +160,9 @@
     </item>
     <item>
      <widget class="QFrame" name="fr_inferior">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 55, 235);</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
