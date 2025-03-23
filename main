@@ -1,3 +1,4 @@
+#https://www.youtube.com/watch?v=GmDxPFCRf8M
 from PyQt5.QtWidgets import QMainWindow, QApplication, QGraphicsDropShadowEffect
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import QPoint,Qt,QByteArray,QIODevice,QBuffer
