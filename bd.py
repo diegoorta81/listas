@@ -69,7 +69,6 @@ class bd:
             
             item_nombre = QTableWidgetItem(str(registro[0]))
             item_nombre.setFlags( item_nombre.flags() | QtCore.Qt.ItemIsEditable )
-            item_nombre.itemChanged(bd.act_borrararticulo)
             tablewidget.setItem(fila,1, item_nombre)
 
             item_descripcion = QTableWidgetItem(registro[1])

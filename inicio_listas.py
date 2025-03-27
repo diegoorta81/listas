@@ -104,6 +104,9 @@ class Inicio_listas(QtWidgets.QMainWindow):
             self.splitter1.setSizes([300,300])
             self.hbox.addWidget(self.splitter1)
             self.tablewidget.itemChanged.connect(self.tablewidget_on_item_changed) 
+            self.tablewidget.itemClicked.connect(self.tablewidget_on_item_clicked) 
+
+            
             
             
 
@@ -156,6 +159,7 @@ class Inicio_listas(QtWidgets.QMainWindow):
     @QtCore.pyqtSlot(QtWidgets.QTableWidgetItem)    
     def tablewidget_on_item_changed(self, item: QtWidgets.QTableWidgetItem) -> None:
         #print(f"Se modificó el item en posición ({item.row()}, {item.column()}, {item.text()})") 
+        print("Tree clicados")
         pass
         """if (item == None):
             item = self.tree_tablewidget.currentItem()
@@ -176,6 +180,12 @@ class Inicio_listas(QtWidgets.QMainWindow):
         
         #self.myframe = self.findChild(QFrame, 'fr_inferior')
         #self.myframe.window(window)
+
+    @QtCore.pyqtSlot(QtWidgets.QTableWidgetItem)    
+    def tablewidget_on_item_clicked(self, item: QtWidgets.QTableWidgetItem) -> None:
+        #print(f"Se modificó el item en posición ({item.row()}, {item.column()}, {item.text()})") 
+        print("Articulos clicados")
+        pass
 
 class myWidget(QtWidgets.QWidget):
     def __init__(self):
