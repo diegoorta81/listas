@@ -56,26 +56,33 @@ class bd:
 
      
     def onItemClicked(item,tablewidget):
-        #tablewidget.setColumnCount(4)
+        
+        if (tablewidget.rowCount()>0):
+            tablewidget.setRowCount(0)
+
+            
         datos = bd.ejecuta_select("select nombre,descripcion,padre,palabras from t_articulos where id="+item.text(1))
         fila = 0
         for registro in datos:
-            tablewidget.setRowCount(fila + 1)
+            
+            tablewidget.insertRow(fila)
+            
             item_nombre = QTableWidgetItem(str(registro[0]))
-            item_nombre.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )
-            tablewidget.setItem(fila,0, QTableWidgetItem(item_nombre))
+            item_nombre.setFlags( item_nombre.flags() | QtCore.Qt.ItemIsEditable )
+            item_nombre.itemChanged(bd.act_borrararticulo)
+            tablewidget.setItem(fila,1, item_nombre)
 
             item_descripcion = QTableWidgetItem(registro[1])
-            item_descripcion.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )
-            tablewidget.setItem(fila,1, item_descripcion)
+            item_descripcion.setFlags( item_nombre.flags() | QtCore.Qt.ItemIsEditable )
+            tablewidget.setItem(fila,2, item_descripcion)
 
             item_padre = QTableWidgetItem(registro[2])
-            item_padre.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )
-            tablewidget.setItem(fila,2, item_padre)
+            item_padre.setFlags( item_nombre.flags() | QtCore.Qt.ItemIsEditable )
+            tablewidget.setItem(fila,3, item_padre)
 
             item_palabras = QTableWidgetItem(registro[3])
-            item_palabras.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )
-            tablewidget.setItem(fila,3, item_palabras)
+            item_palabras.setFlags( item_nombre.flags() | QtCore.Qt.ItemIsEditable )
+            tablewidget.setItem(fila,4, item_palabras)
 
             
 

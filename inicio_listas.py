@@ -74,12 +74,17 @@ class Inicio_listas(QtWidgets.QMainWindow):
 
 
             self.tree_apuntes = self.findChild(QtWidgets.QTreeWidget, 'tree_cuentas')
+            
 
             self.tablewidget = self.findChild(QtWidgets.QTableWidget, 'tablewidget')
+            
             self.tablewidget.setSortingEnabled(True)
-            self.tablewidget.itemChanged.connect(self.tablewidget_on_item_changed) 
+            
+            
 
             self.tablewidget_img = self.findChild(QtWidgets.QTableWidget, 'tablewidget_img')
+            self.tablewidget_img.setColumnHidden(0,True)
+            self.tablewidget.setColumnHidden(0,True)
             self.fr_tree_cuentas = self.findChild(QtWidgets.QFrame, 'fr_tree_cuentas')
             self.fr_table = self.findChild(QtWidgets.QFrame, 'fr_table')
             
@@ -98,6 +103,7 @@ class Inicio_listas(QtWidgets.QMainWindow):
 
             self.splitter1.setSizes([300,300])
             self.hbox.addWidget(self.splitter1)
+            self.tablewidget.itemChanged.connect(self.tablewidget_on_item_changed) 
             
             
 
@@ -150,7 +156,8 @@ class Inicio_listas(QtWidgets.QMainWindow):
     @QtCore.pyqtSlot(QtWidgets.QTableWidgetItem)    
     def tablewidget_on_item_changed(self, item: QtWidgets.QTableWidgetItem) -> None:
         #print(f"Se modificó el item en posición ({item.row()}, {item.column()}, {item.text()})") 
-        if (item == None):
+        pass
+        """if (item == None):
             item = self.tree_tablewidget.currentItem()
             id = self.tree_apuntes.item(item.row(),0).text()
         
@@ -164,7 +171,7 @@ class Inicio_listas(QtWidgets.QMainWindow):
                 pass
             #tb_datos = self.findChild(QtWidgets.QTableWidget, "tb_aplicaciones")
             #id = tb_datos.item(item.row(),0).text()
-            #bd.update_logo(id,item.text())           
+            #bd.update_logo(id,item.text())           """
 
         
         #self.myframe = self.findChild(QFrame, 'fr_inferior')
