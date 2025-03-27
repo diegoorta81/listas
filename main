@@ -5,6 +5,7 @@ from PyQt5.QtCore import QPoint,Qt,QByteArray,QIODevice,QBuffer
 from PyQt5 import QtCore,QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtGui import QImage,QPixmap,QColor,QIntValidator
+from tkinter import messagebox as mb
 import sqlite3
 import sys
 
@@ -82,11 +83,14 @@ class Formulario(QMainWindow):
         elif len(telefono) <= 4:
             self.img_preview.setText("No hay telefono")
         elif foto:
-            #cursor.execute("INSERT INTO datos VALUES (?,?,?)", (nombre,correo,telefono,bArray))
-            cursor.execute("INSERT INTO datos VALUES (?,?,?,?)", ("nombre","correo","telefono","ddddd"))
-            self.conexion.commit
-            cursor.close()
-            self.clear_data()
+            try:
+                cursor.execute("INSERT INTO datos VALUES (?,?,?,?)", (nombre,correo,telefono,bArray))
+                self.conexion.commit()
+                cursor.close()
+                self.clear_data()
+            except Exception as error: mb.showinfo("Información", f'Ha ocurrido un error: (1) {type(error)} (2) {error}')
+            #    print(f'Ha ocurrido un error: (1) {type(error)} (2) {error}')
+            
         else:
             self.img_preview.setText("No hay foto")
 
@@ -97,25 +101,25 @@ class Formulario(QMainWindow):
         nombrex = cursor.fetchall()
         cursor.close()
         if nombrex:
-            self.telefono.setText(f'Telefono: {nombrex[0][1]}')
-            self.correo.setText(f'Correo: {nombrex[0][2]}')
+            self.lbl_telefono.setText(f'Telefono: {nombrex[0][1]}')
+            self.lbl_correo.setText(f'Correo: {nombrex[0][2]}')
             foto = QPixmap()
             foto.loadFromData(nombrex[0][3],"PNG",Qt.AutoColor)
-            self.imagen.setPixmap(foto)
+            self.lbl_imagen.setPixmap(foto)
         else:
-            self.telefono.setText("Telefono: None")
-            self.correo.setText("Correo: None")
-            self.imagen.clear()
+            self.lbl_telefono.setText("Telefono: None")
+            self.lbl_correo.setText("Correo: None")
+            self.lbl_imagen.clear()
 
     def control_bt_normal(self):
         self.showNormal()
-        self.btn_normal.hide()
-        self.bt_maximize.show()
+        self.bt_normal.hide()
+        self.bt_maximo.show()
 
     def control_bt_maximize(self):
         self.showMaximized()
         self.btn_normal.show()
-        self.bt_maximize.hide()
+        self.bt_maximo.hide()
 
     def resizeEvent(self, event):
         rect = self.rect()

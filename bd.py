@@ -122,3 +122,6 @@ class bd:
                 resultados = cursor.fetchall()
                 return resultados
         except Exception as error: print(f'Ha ocurrido un error: (1) {type(error)} (2) {error}')
+
+    def tablewidget_on_item_changed():
+        pass

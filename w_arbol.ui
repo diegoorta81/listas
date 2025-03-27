@@ -6,14 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>578</width>
-    <height>391</height>
+    <width>797</width>
+    <height>496</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2">
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_5">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -54,107 +57,224 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QTreeWidget" name="tree_cuentas">
+       <widget class="QFrame" name="fr_tree_cuentas">
         <property name="minimumSize">
          <size>
-          <width>150</width>
+          <width>200</width>
           <height>0</height>
          </size>
         </property>
-        <property name="maximumSize">
-         <size>
-          <width>300</width>
-          <height>16777215</height>
-         </size>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
-        <property name="sizeIncrement">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
         </property>
-        <property name="baseSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(210, 255, 246);
-alternate-background-color: rgb(170, 0, 255);</string>
-        </property>
-        <property name="indentation">
-         <number>20</number>
-        </property>
-        <column>
-         <property name="text">
-          <string notr="true">1</string>
+        <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0">
+         <property name="spacing">
+          <number>0</number>
          </property>
-        </column>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QFrame" name="frame">
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 43, 99);</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QTreeWidget" name="tree_cuentas">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="sizeIncrement">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="baseSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(210, 255, 246);
+alternate-background-color: rgb(170, 0, 255);</string>
+              </property>
+              <property name="autoScrollMargin">
+               <number>0</number>
+              </property>
+              <property name="indentation">
+               <number>20</number>
+              </property>
+              <column>
+               <property name="text">
+                <string notr="true">1</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="tablewidget">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 226, 78);</string>
+       <widget class="QFrame" name="fr_table">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
         </property>
-        <property name="sizeAdjustPolicy">
-         <enum>QAbstractScrollArea::AdjustToContents</enum>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
-        <property name="tabKeyNavigation">
-         <bool>false</bool>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
         </property>
-        <property name="dragDropOverwriteMode">
-         <bool>false</bool>
-        </property>
-        <column>
-         <property name="text">
-          <string>Nombre</string>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="leftMargin">
+          <number>0</number>
          </property>
-         <property name="font">
-          <font>
-           <pointsize>7</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
+         <property name="topMargin">
+          <number>0</number>
          </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Descripción</string>
+         <property name="rightMargin">
+          <number>0</number>
          </property>
-         <property name="font">
-          <font>
-           <pointsize>7</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
+         <property name="bottomMargin">
+          <number>0</number>
          </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Categoría</string>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>7</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Palabras</string>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>7</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-        </column>
+         <item>
+          <widget class="QTableWidget" name="tablewidget">
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 226, 78);</string>
+           </property>
+           <property name="sizeAdjustPolicy">
+            <enum>QAbstractScrollArea::AdjustToContents</enum>
+           </property>
+           <property name="tabKeyNavigation">
+            <bool>false</bool>
+           </property>
+           <property name="dragDropOverwriteMode">
+            <bool>false</bool>
+           </property>
+           <column>
+            <property name="text">
+             <string>Nombre</string>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>7</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Descripción</string>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>7</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Categoría</string>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>7</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Palabras</string>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>7</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="tablewidget_img">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <column>
+            <property name="text">
+             <string>Imagen</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
