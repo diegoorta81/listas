@@ -57,6 +57,8 @@ class Inicio_listas(QtWidgets.QMainWindow):
         item = self.tree_apuntes.currentItem()
         
         bd.onItemClicked(item,self.tablewidget)
+        bd.tablewidget_on_item_clicked(self,item.text(1))
+        
 
 
     def act_articulos(self):
@@ -67,7 +69,7 @@ class Inicio_listas(QtWidgets.QMainWindow):
                    
             self.fr_inferior = self.findChild(QFrame, 'fr_inferior')
 
-            uic.loadUi('w_arbol.ui',self.fr_inferior)
+            uic.loadUi('.\\w_arbol.ui',self.fr_inferior)
             self.hbox = self.findChild(QtWidgets.QHBoxLayout, 'horizontalLayout_2')
 
             self.fr_inferior.setLayout(self.hbox)
@@ -83,7 +85,7 @@ class Inicio_listas(QtWidgets.QMainWindow):
             
 
             self.tablewidget_img = self.findChild(QtWidgets.QTableWidget, 'tablewidget_img')
-            self.tablewidget_img.setColumnHidden(0,True)
+            #self.tablewidget_img.setColumnHidden(0,True)
             self.tablewidget.setColumnHidden(0,True)
             self.fr_tree_cuentas = self.findChild(QtWidgets.QFrame, 'fr_tree_cuentas')
             self.fr_table = self.findChild(QtWidgets.QFrame, 'fr_table')
@@ -159,8 +161,8 @@ class Inicio_listas(QtWidgets.QMainWindow):
     @QtCore.pyqtSlot(QtWidgets.QTableWidgetItem)    
     def tablewidget_on_item_changed(self, item: QtWidgets.QTableWidgetItem) -> None:
         #print(f"Se modificó el item en posición ({item.row()}, {item.column()}, {item.text()})") 
-        print("Tree clicados")
-        pass
+        #print("Tree clicados")
+        #pass
         """if (item == None):
             item = self.tree_tablewidget.currentItem()
             id = self.tree_apuntes.item(item.row(),0).text()
@@ -184,8 +186,15 @@ class Inicio_listas(QtWidgets.QMainWindow):
     @QtCore.pyqtSlot(QtWidgets.QTableWidgetItem)    
     def tablewidget_on_item_clicked(self, item: QtWidgets.QTableWidgetItem) -> None:
         #print(f"Se modificó el item en posición ({item.row()}, {item.column()}, {item.text()})") 
-        print("Articulos clicados")
-        pass
+        #print("Articulos clicados")
+        tablewidget = self.findChild(QtWidgets.QTableWidget, 'tablewidget')
+        row = tablewidget.currentRow()
+        print(tablewidget.item(row,0).text())
+            #tablewidget.currentRow()
+             # currentItem().row())
+        bd.tablewidget_on_item_clicked(self,tablewidget.item(row,0).text())
+        
+        
 
 class myWidget(QtWidgets.QWidget):
     def __init__(self):

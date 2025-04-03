@@ -22,6 +22,8 @@ class Db_SQLITE:
     def __exit__(self, tipoError, valorError, trazaError):
         if tipoError:
             self.conexion.rollback()
+            self.cursor.close()
+            self.conexion.close()
             print('Ha ocurrido un error y se ha revertido la transacción: (1) {tipoError} (2) {valorError}')
         else: 
             self.conexion.commit()

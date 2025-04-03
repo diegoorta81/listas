@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, uic, QtWidgets
 from db_sqlite import Db_SQLITE
 
-from PyQt5.QtWidgets import QTreeWidget, QTreeWidgetItem, QTableWidgetItem
+from PyQt5.QtWidgets import QTreeWidget,QTableWidget, QTreeWidgetItem, QTableWidgetItem
 
 
 
@@ -31,7 +31,7 @@ class bd:
         for registro in datos:
             uno = QTreeWidgetItem(tb_datos)
             
-            uno.setText(0,str(registro[0])+".- "+str(registro[1]))
+            uno.setText(0,str(registro[1]))
             uno.setText(1,str(registro[0]))
             #uno.setEditable(True)
 
@@ -61,25 +61,29 @@ class bd:
             tablewidget.setRowCount(0)
 
             
-        datos = bd.ejecuta_select("select nombre,descripcion,padre,palabras from t_articulos where id="+item.text(1))
+        datos = bd.ejecuta_select("select id,nombre,descripcion,padre,palabras from t_articulos where id="+item.text(1))
         fila = 0
         for registro in datos:
             
             tablewidget.insertRow(fila)
             
-            item_nombre = QTableWidgetItem(str(registro[0]))
+            item_id = QTableWidgetItem(str(registro[0]))
+            item_id.setFlags( item_id.flags() | QtCore.Qt.ItemIsEditable )
+            tablewidget.setItem(fila,0, item_id)
+
+            item_nombre = QTableWidgetItem(registro[1])
             item_nombre.setFlags( item_nombre.flags() | QtCore.Qt.ItemIsEditable )
             tablewidget.setItem(fila,1, item_nombre)
 
-            item_descripcion = QTableWidgetItem(registro[1])
+            item_descripcion = QTableWidgetItem(registro[2])
             item_descripcion.setFlags( item_nombre.flags() | QtCore.Qt.ItemIsEditable )
             tablewidget.setItem(fila,2, item_descripcion)
 
-            item_padre = QTableWidgetItem(registro[2])
+            item_padre = QTableWidgetItem(registro[3])
             item_padre.setFlags( item_nombre.flags() | QtCore.Qt.ItemIsEditable )
             tablewidget.setItem(fila,3, item_padre)
 
-            item_palabras = QTableWidgetItem(registro[3])
+            item_palabras = QTableWidgetItem(registro[4])
             item_palabras.setFlags( item_nombre.flags() | QtCore.Qt.ItemIsEditable )
             tablewidget.setItem(fila,4, item_palabras)
 
@@ -90,8 +94,10 @@ class bd:
             tablewidget.resizeColumnsToContents()
             tablewidget.verticalHeader().setVisible(True)
 
-        print(item.text(0))
-        print(item.text(1))
+        
+
+        #print(item.text(0))
+        #print(item.text(1))
 
         
         
@@ -129,5 +135,36 @@ class bd:
                 return resultados
         except Exception as error: print(f'Ha ocurrido un error: (1) {type(error)} (2) {error}')
 
-    def tablewidget_on_item_changed():
-        pass
+
+    def ejecuta_select_(sql,tupla):
+        try:
+            with Db_SQLITE() as cursor:
+                cursor.execute(sql,tupla)
+                resultados = cursor.fetchall()
+                return resultados
+        except Exception as error: print(f'Ha ocurrido un error: (1) {type(error)} (2) {error}')    
+
+    def tablewidget_on_item_clicked(self,id_articulo):
+        sql = "select archivo,descripcion from t_archivos where id_padre=?"
+        cursor = bd.ejecuta_select_(sql,(id_articulo,))
+        #print(cursor[0][1] + "buen camino")
+        tablewidget_img = self.findChild(QtWidgets.QTableWidget, 'tablewidget_img')
+        tablewidget_img.setSortingEnabled(True)
+        tablewidget_img.setRowCount(0)
+
+        fila = 0
+        for registro in cursor:
+            tablewidget_img.insertRow(fila)
+            
+            item_imagen = QTableWidgetItem(str(registro[0]))
+            #item_id.setFlags( item_id.flags() | QtCore.Qt.ItemIsEditable )
+            tablewidget_img.setItem(fila,0, item_imagen)
+
+            item_descripcion = QTableWidgetItem(registro[1])
+            #item_id.setFlags( item_id.flags() | QtCore.Qt.ItemIsEditable )
+            tablewidget_img.setItem(fila,0, item_descripcion)
+            
+            fila+=1
+           
+            tablewidget_img.resizeColumnsToContents()
+            tablewidget_img.verticalHeader().setVisible(True)

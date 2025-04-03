@@ -229,55 +229,27 @@ alternate-background-color: rgb(170, 0, 255);</string>
            </attribute>
            <column>
             <property name="text">
-             <string>id</string>
+             <string>Id</string>
             </property>
            </column>
            <column>
             <property name="text">
              <string>Nombre</string>
             </property>
-            <property name="font">
-             <font>
-              <pointsize>7</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
+           </column>
+           <column>
+            <property name="text">
+             <string>Tipo</string>
             </property>
            </column>
            <column>
             <property name="text">
              <string>Descripción</string>
             </property>
-            <property name="font">
-             <font>
-              <pointsize>7</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Categoría</string>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>7</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
-            </property>
            </column>
            <column>
             <property name="text">
              <string>Palabras</string>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>7</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
-             </font>
             </property>
            </column>
           </widget>
@@ -295,12 +267,12 @@ alternate-background-color: rgb(170, 0, 255);</string>
            </property>
            <column>
             <property name="text">
-             <string>id</string>
+             <string>Fichero</string>
             </property>
            </column>
            <column>
             <property name="text">
-             <string>Fichero</string>
+             <string>Descripcion</string>
             </property>
            </column>
           </widget>
