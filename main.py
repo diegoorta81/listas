@@ -70,7 +70,7 @@ class Formulario(QMainWindow):
             bArray = QByteArray()
             buff = QBuffer(bArray)
             buff.open(QIODevice.WriteOnly)
-            foto.save(buff, "PNG")
+            foto.save(buff, "JPG")
 
 
         cursor = self.conexion.cursor()

@@ -117,7 +117,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QTreeWidget" name="tree_cuentas">
+             <widget class="QTreeWidget" name="tree_articulos">
               <property name="minimumSize">
                <size>
                 <width>0</width>

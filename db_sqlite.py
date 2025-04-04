@@ -1,11 +1,15 @@
 import sqlite3
+import os
 
 
 
 class Db_SQLITE:
 
+    ui_path = os.path.dirname(os.path.abspath(__file__))
+
+       
     #__path = "C:\trabajo\python\lista_aplicaciones\datos\aplicaciones.db"
-    __path = ".\\datos\\listas.bd"
+    __path = ui_path +"\\datos\\listas.bd"
     __BASE_DATOS = "listas.bd"
     
     

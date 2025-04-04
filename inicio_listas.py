@@ -1,6 +1,6 @@
 import sys, os
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QWidget, QFrame, QHBoxLayout, QSplitter, QLineEdit, QFrame,QTreeWidget, QTreeWidgetItem,QMainWindow, QAction
+from PyQt5.QtWidgets import QApplication, QWidget, QFrame, QHBoxLayout, QSplitter, QLineEdit, QFrame,QTreeWidget, QTreeWidgetItem,QMainWindow, QAction, QMenu
 
 from PyQt5 import uic
 from bd import bd
@@ -17,6 +17,14 @@ class Inicio_listas(QtWidgets.QMainWindow):
         uic.loadUi(os.path.join(ui_path, "inicio_listas.ui"), self)
 
 
+        self.context_menu = QMenu(self)
+        action1 = self.context_menu.addAction("Action 1")
+        action2 = self.context_menu.addAction("Action 2")
+        action3 = self.context_menu.addAction("Action 3")
+
+        action1.triggered.connect(self.handle_action1)
+        action2.triggered.connect(self.handle_action2)
+        action3.triggered.connect(self.handle_action3)
 
         
         self.bt_articulos = self.findChild(QtWidgets.QPushButton, 'bt_articulos')
@@ -28,7 +36,7 @@ class Inicio_listas(QtWidgets.QMainWindow):
         self.hidden = True
 
         self.bt_nuevoarticulo = self.findChild(QtWidgets.QPushButton, 'bt_nuevoarticulo')
-        self.bt_nuevoarticulo.clicked.connect(bd.act_nuevoarticulo)
+        self.bt_nuevoarticulo.clicked.connect( lambda state, btn=self : bd.act_nuevoarticulo(btn))
         
         self.action_nuevoarticulo = self.findChild(QAction, 'action_nuevoarticulo')
         self.action_nuevoarticulo.triggered.connect(bd.act_nuevoarticulo)
@@ -53,11 +61,11 @@ class Inicio_listas(QtWidgets.QMainWindow):
         self.bt_nuevoarticulo.setEnabled(False)
 
 
-    def onItemClicked(self):
-        item = self.tree_apuntes.currentItem()
+    def tree_articulos_onItemClicked(self):
+        item = self.tree_articulos.currentItem()
         
-        bd.onItemClicked(item,self.tablewidget)
-        bd.tablewidget_on_item_clicked(self,item.text(1))
+        bd.tree_articulos_onItemClicked(item,self.tablewidget)
+        #bd.tree_articulos_onItemClicked(self,item.text(1))
         
 
 
@@ -68,14 +76,16 @@ class Inicio_listas(QtWidgets.QMainWindow):
         if (self.frame_arbol_superior is None):
                    
             self.fr_inferior = self.findChild(QFrame, 'fr_inferior')
+            mod_path = __file__
 
-            uic.loadUi('.\\w_arbol.ui',self.fr_inferior)
+            uic.loadUi( os.path.dirname(__file__)+  '\\w_arbol.ui',self.fr_inferior)
+            
             self.hbox = self.findChild(QtWidgets.QHBoxLayout, 'horizontalLayout_2')
 
             self.fr_inferior.setLayout(self.hbox)
 
 
-            self.tree_apuntes = self.findChild(QtWidgets.QTreeWidget, 'tree_cuentas')
+            self.tree_articulos = self.findChild(QtWidgets.QTreeWidget, 'tree_articulos')
             
 
             self.tablewidget = self.findChild(QtWidgets.QTableWidget, 'tablewidget')
@@ -87,11 +97,11 @@ class Inicio_listas(QtWidgets.QMainWindow):
             self.tablewidget_img = self.findChild(QtWidgets.QTableWidget, 'tablewidget_img')
             #self.tablewidget_img.setColumnHidden(0,True)
             self.tablewidget.setColumnHidden(0,True)
-            self.fr_tree_cuentas = self.findChild(QtWidgets.QFrame, 'fr_tree_cuentas')
+            self.fr_tree_articulos = self.findChild(QtWidgets.QFrame, 'fr_tree_articulos')
             self.fr_table = self.findChild(QtWidgets.QFrame, 'fr_table')
             
             
-            self.apuntes = bd.ejecuta()
+            self.articulos = bd.ejecuta()
 
             self.splitter2 = QSplitter(Qt.Orientation.Vertical)
             self.splitter2.addWidget(self.tablewidget)
@@ -100,7 +110,7 @@ class Inicio_listas(QtWidgets.QMainWindow):
             self.hbox.addWidget(self.splitter2)
 
             self.splitter1 = QSplitter(Qt.Orientation.Horizontal)
-            self.splitter1.addWidget(self.tree_apuntes)
+            self.splitter1.addWidget(self.tree_articulos)
             self.splitter1.addWidget(self.splitter2)
 
             self.splitter1.setSizes([300,300])
@@ -124,8 +134,8 @@ class Inicio_listas(QtWidgets.QMainWindow):
             self.bt_editararticulo.setEnabled(True)
             self.bt_nuevoarticulo.setEnabled(True)
 
-            bd.refresca(self.tree_apuntes,self.apuntes)
-            self.tree_apuntes.itemClicked.connect(self.onItemClicked)
+            bd.refresca(self.tree_articulos,self.articulos)
+            self.tree_articulos.itemClicked.connect(self.tree_articulos_onItemClicked)
         else:
             
             if (self.fr_inferior.isVisible()):
@@ -193,7 +203,19 @@ class Inicio_listas(QtWidgets.QMainWindow):
             #tablewidget.currentRow()
              # currentItem().row())
         bd.tablewidget_on_item_clicked(self,tablewidget.item(row,0).text())
+
+    def contextMenuEvent(self, event):
+        print(event.globalPos())
+        self.context_menu.exec(event.globalPos())
+    
+    def handle_action1(self):
+        print("Action 1 ejecutada")
         
+    def handle_action2(self):
+        print("Action 2 ejecutada")        
+    
+    def handle_action3(self):
+        print("Action 3 ejecutada")
         
 
 class myWidget(QtWidgets.QWidget):

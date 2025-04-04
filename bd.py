@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, uic, QtWidgets
 from db_sqlite import Db_SQLITE
-
+from PyQt5.QtGui import QImage,QPixmap,QColor
+from PyQt5.QtCore import QPoint,Qt,QByteArray,QIODevice,QBuffer
 from PyQt5.QtWidgets import QTreeWidget,QTableWidget, QTreeWidgetItem, QTableWidgetItem
 
 
@@ -45,7 +46,7 @@ class bd:
         level =+ 1
         for registro in datos:
             dos = QTreeWidgetItem(uno)
-            dos.setText(0,str(registro[0])+".- "+str(registro[1]))
+            dos.setText(0,str(registro[1]))
             dos.setText(1,str(registro[0]))
             #dos.setText(1,str(registro[1]))
             
@@ -55,13 +56,13 @@ class bd:
 
 
      
-    def onItemClicked(item,tablewidget):
+    def tree_articulos_onItemClicked(item,tablewidget):
         
         if (tablewidget.rowCount()>0):
             tablewidget.setRowCount(0)
 
             
-        datos = bd.ejecuta_select("select id,nombre,descripcion,padre,palabras from t_articulos where id="+item.text(1))
+        datos = bd.ejecuta_select("select id,nombre,padre,descripcion,palabras from t_articulos where id="+item.text(1))
         fila = 0
         for registro in datos:
             
@@ -100,11 +101,19 @@ class bd:
         #print(item.text(1))
 
         
+    
+    def act_nuevoarticulo(self):        
+        tree_articulos = self.findChild(QtWidgets.QTreeWidget, 'tree_articulos')
+        item = tree_articulos.currentItem()
+        id = item.text(1)
+        if int(id)>0:
+            sql = "insert into t_articulos (nombre,padre)"
         
-
-    def act_nuevoarticulo(self):
+        
+        tablewidget_img = self.findChild(QtWidgets.QTableWidget, 'tablewidget_img')
+        
         print("nuevo articulo")
-        print(self.sql)
+        
     
     def act_editararticulo(self):
         print("editar articulo")
@@ -156,15 +165,38 @@ class bd:
         for registro in cursor:
             tablewidget_img.insertRow(fila)
             
-            item_imagen = QTableWidgetItem(str(registro[0]))
+            foto = QPixmap()
+            bandera = foto.loadFromData(registro[0],"JPG",Qt.AutoColor)
+            if bandera is True:
+                label = QtWidgets.QLabel()
+                label.setPixmap(foto)
+                tablewidget_img.setCellWidget(fila,0, label)
+            if bandera is False:
+                bandera = foto.loadFromData(registro[0],"PNG",Qt.AutoColor)
+                if bandera is True:
+                    label = QtWidgets.QLabel()
+                    label.setPixmap(foto)
+                    tablewidget_img.setCellWidget(fila,0, label)
+            
+            
+            if bandera is False:
+                
+                text = registro[0].decode()
+                item_archivo = QTableWidgetItem(text)
+                tablewidget_img.setItem(fila,0, item_archivo)
+            
+            #self.lbl_imagen.setPixmap(foto)
+            #item_imagen = QTableWidgetItem(str(registro[0]))
+            #item_imagen.setPixmap(foto)
             #item_id.setFlags( item_id.flags() | QtCore.Qt.ItemIsEditable )
-            tablewidget_img.setItem(fila,0, item_imagen)
+            
 
             item_descripcion = QTableWidgetItem(registro[1])
             #item_id.setFlags( item_id.flags() | QtCore.Qt.ItemIsEditable )
-            tablewidget_img.setItem(fila,0, item_descripcion)
+            tablewidget_img.setItem(fila,1, item_descripcion)
             
             fila+=1
            
             tablewidget_img.resizeColumnsToContents()
+            tablewidget_img.resizeRowsToContents()
             tablewidget_img.verticalHeader().setVisible(True)

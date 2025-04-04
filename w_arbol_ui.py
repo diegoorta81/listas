@@ -56,25 +56,25 @@ class Ui_Form(object):
         self.horizontalLayout_4.setSpacing(0)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.tree_cuentas = QTreeWidget(self.frame)
+        self.tree_articulos = QTreeWidget(self.frame)
         __qtreewidgetitem = QTreeWidgetItem()
         __qtreewidgetitem.setText(0, u"1");
-        self.tree_cuentas.setHeaderItem(__qtreewidgetitem)
-        self.tree_cuentas.setObjectName(u"tree_cuentas")
-        self.tree_cuentas.setMinimumSize(QSize(0, 0))
-        self.tree_cuentas.setMaximumSize(QSize(16777215, 16777215))
-        self.tree_cuentas.setSizeIncrement(QSize(0, 0))
-        self.tree_cuentas.setBaseSize(QSize(0, 0))
-        self.tree_cuentas.setLayoutDirection(Qt.LeftToRight)
-        self.tree_cuentas.setStyleSheet(u"background-color: rgb(210, 255, 246);\n"
+        self.tree_articulos.setHeaderItem(__qtreewidgetitem)
+        self.tree_articulos.setObjectName(u"tree_articulos")
+        self.tree_articulos.setMinimumSize(QSize(0, 0))
+        self.tree_articulos.setMaximumSize(QSize(16777215, 16777215))
+        self.tree_articulos.setSizeIncrement(QSize(0, 0))
+        self.tree_articulos.setBaseSize(QSize(0, 0))
+        self.tree_articulos.setLayoutDirection(Qt.LeftToRight)
+        self.tree_articulos.setStyleSheet(u"background-color: rgb(210, 255, 246);\n"
 "alternate-background-color: rgb(170, 0, 255);")
-        self.tree_cuentas.setAutoScrollMargin(0)
-        self.tree_cuentas.setIndentation(20)
-        self.tree_cuentas.setSortingEnabled(True)
-        self.tree_cuentas.setAllColumnsShowFocus(True)
-        self.tree_cuentas.header().setStretchLastSection(True)
+        self.tree_articulos.setAutoScrollMargin(0)
+        self.tree_articulos.setIndentation(20)
+        self.tree_articulos.setSortingEnabled(True)
+        self.tree_articulos.setAllColumnsShowFocus(True)
+        self.tree_articulos.header().setStretchLastSection(True)
 
-        self.horizontalLayout_4.addWidget(self.tree_cuentas)
+        self.horizontalLayout_4.addWidget(self.tree_articulos)
 
 
         self.horizontalLayout_2.addWidget(self.frame)
@@ -95,20 +95,13 @@ class Ui_Form(object):
             self.tablewidget.setColumnCount(5)
         __qtablewidgetitem = QTableWidgetItem()
         self.tablewidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        font = QFont()
-        font.setPointSize(7)
-        font.setBold(True)
         __qtablewidgetitem1 = QTableWidgetItem()
-        __qtablewidgetitem1.setFont(font);
         self.tablewidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         __qtablewidgetitem2 = QTableWidgetItem()
-        __qtablewidgetitem2.setFont(font);
         self.tablewidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         __qtablewidgetitem3 = QTableWidgetItem()
-        __qtablewidgetitem3.setFont(font);
         self.tablewidget.setHorizontalHeaderItem(3, __qtablewidgetitem3)
         __qtablewidgetitem4 = QTableWidgetItem()
-        __qtablewidgetitem4.setFont(font);
         self.tablewidget.setHorizontalHeaderItem(4, __qtablewidgetitem4)
         self.tablewidget.setObjectName(u"tablewidget")
         self.tablewidget.setLayoutDirection(Qt.LeftToRight)
@@ -150,18 +143,18 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         ___qtablewidgetitem = self.tablewidget.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("Form", u"id", None));
+        ___qtablewidgetitem.setText(QCoreApplication.translate("Form", u"Id", None));
         ___qtablewidgetitem1 = self.tablewidget.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("Form", u"Nombre", None));
         ___qtablewidgetitem2 = self.tablewidget.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("Form", u"Descripci\u00f3n", None));
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("Form", u"Tipo", None));
         ___qtablewidgetitem3 = self.tablewidget.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("Form", u"Categor\u00eda", None));
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("Form", u"Descripci\u00f3n", None));
         ___qtablewidgetitem4 = self.tablewidget.horizontalHeaderItem(4)
         ___qtablewidgetitem4.setText(QCoreApplication.translate("Form", u"Palabras", None));
         ___qtablewidgetitem5 = self.tablewidget_img.horizontalHeaderItem(0)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("Form", u"id", None));
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("Form", u"Fichero", None));
         ___qtablewidgetitem6 = self.tablewidget_img.horizontalHeaderItem(1)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("Form", u"Fichero", None));
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("Form", u"Descripcion", None));
     # retranslateUi
 
