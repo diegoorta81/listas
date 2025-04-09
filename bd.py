@@ -19,7 +19,14 @@ class bd:
                 #for resultado in resultados: print(list(resultado)[0])
         except Exception as error: print(f'Ha ocurrido un error: (1) {type(error)} (2) {error}')
 
-    
+    def ejecuta_insert(sql):
+        
+        try:
+            with Db_SQLITE() as cursor:
+                cur = cursor.execute(sql)
+                return cur.lastrowid
+                #for resultado in resultados: print(list(resultado)[0])
+        except Exception as error: print(f'Ha ocurrido un error: (1) {type(error)} (2) {error}')
 
     def refresca(tb_datos,datos):
         tb_datos.setHeaderLabels(['Artículos'])
@@ -105,11 +112,32 @@ class bd:
     def act_nuevoarticulo(self):        
         tree_articulos = self.findChild(QtWidgets.QTreeWidget, 'tree_articulos')
         item = tree_articulos.currentItem()
-        id = item.text(1)
-        if int(id)>0:
-            sql = "insert into t_articulos (nombre,padre)"
+        
+
+        
+        if not(item):
+            item = 'Null'
+        else:
+            id = item.text(0)
+        sql = "insert into t_articulos (nombre,padre) values ('NUEVO ARTÍCULO','"+id+"')"
+        id = bd.ejecuta_insert(sql)
+        
+
+        
+
+            
+
+        uno = QTreeWidgetItem(tree_articulos)
+        uno.setText(0,"NUEVO ARTÍCULO")
+        uno.setText(1,str(id))
+            #uno.setEditable(True)
+
+        
+        self.findChild(QtWidgets.QTreeWidget, 'tree_articulos').currentItem().addChild(uno)
+        ##
         
         
+        tablewidget = self.findChild(QtWidgets.QTableWidget, 'tablewidget')
         tablewidget_img = self.findChild(QtWidgets.QTableWidget, 'tablewidget_img')
         
         print("nuevo articulo")

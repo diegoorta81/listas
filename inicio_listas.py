@@ -35,11 +35,13 @@ class Inicio_listas(QtWidgets.QMainWindow):
         self.act.triggered.connect(self.act_articulos)
         self.hidden = True
 
+        
+
         self.bt_nuevoarticulo = self.findChild(QtWidgets.QPushButton, 'bt_nuevoarticulo')
         self.bt_nuevoarticulo.clicked.connect( lambda state, btn=self : bd.act_nuevoarticulo(btn))
         
         self.action_nuevoarticulo = self.findChild(QAction, 'action_nuevoarticulo')
-        self.action_nuevoarticulo.triggered.connect(bd.act_nuevoarticulo)
+        self.action_nuevoarticulo.triggered.connect( lambda state, btn=self : bd.act_nuevoarticulo(btn))
 
         self.bt_editararticulo = self.findChild(QtWidgets.QPushButton, 'bt_editararticulo')
         self.bt_editararticulo.clicked.connect(bd.act_editararticulo)

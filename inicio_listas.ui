@@ -191,7 +191,15 @@
     <addaction name="action_nuevoarticulo"/>
     <addaction name="action_borrararticulo"/>
    </widget>
+   <widget class="QMenu" name="menuFicheros">
+    <property name="title">
+     <string>Imagenes/Ficheros</string>
+    </property>
+    <addaction name="action_nuevofichero"/>
+    <addaction name="action_borrarfichero"/>
+   </widget>
    <addaction name="menuArticulos"/>
+   <addaction name="menuFicheros"/>
   </widget>
   <action name="actionddd">
    <property name="text">
@@ -241,6 +249,16 @@
   <action name="action_nuevoarticulo">
    <property name="text">
     <string>Nuevo Artículo</string>
+   </property>
+  </action>
+  <action name="action_nuevofichero">
+   <property name="text">
+    <string>Nuevo Fichero</string>
+   </property>
+  </action>
+  <action name="action_borrarfichero">
+   <property name="text">
+    <string>Borrar Fichero</string>
    </property>
   </action>
  </widget>
