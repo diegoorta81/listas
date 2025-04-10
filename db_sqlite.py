@@ -1,6 +1,6 @@
 import sqlite3
 import os
-
+from tkinter import Toplevel, messagebox
 
 
 class Db_SQLITE:
@@ -28,7 +28,9 @@ class Db_SQLITE:
             self.conexion.rollback()
             self.cursor.close()
             self.conexion.close()
-            print('Ha ocurrido un error y se ha revertido la transacción: (1) {tipoError} (2) {valorError}')
+            #messagebox.showerror("Error", tipoError + " // "+ valorError)
+            
+            #print('Ha ocurrido un error y se ha revertido la transacción: (1) {tipoError} (2) {valorError}')
         else: 
             self.conexion.commit()
             self.cursor.close()
