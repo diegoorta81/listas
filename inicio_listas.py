@@ -1,4 +1,4 @@
-# 10/04/25
+# 21/04/25
 import sys, os
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget, QFrame, QHBoxLayout, QSplitter, QLineEdit, QFrame,QTreeWidget, QTreeWidgetItem,QMainWindow, QAction, QMenu
@@ -51,10 +51,11 @@ class Inicio_listas(QtWidgets.QMainWindow):
         self.action_editararticulo.triggered.connect(bd.act_editararticulo)
 
         self.bt_borrararticulo = self.findChild(QtWidgets.QPushButton, 'bt_borrararticulo')
-        self.bt_borrararticulo.clicked.connect(bd.act_borrararticulo)
+        self.bt_borrararticulo.clicked.connect( lambda state, btn=self : bd.act_borrararticulo(btn))
         
         self.action_borrararticulo = self.findChild(QAction, 'action_borrararticulo')
-        self.action_borrararticulo.triggered.connect(bd.act_borrararticulo)
+        self.action_borrararticulo.triggered.connect( lambda state, btn=self : bd.act_borrararticulo(btn))
+        
 
         self.action_borrararticulo.setEnabled(False)
         self.action_editararticulo.setEnabled(False)
@@ -64,10 +65,10 @@ class Inicio_listas(QtWidgets.QMainWindow):
         self.bt_nuevoarticulo.setEnabled(False)
 
 
-    def tree_articulos_onItemClicked(self):
-        item = self.tree_articulos.currentItem()
+    #def tree_articulos_onItemClicked(self):
+        #item = self.tree_articulos.currentItem()
         
-        bd.tree_articulos_onItemClicked(item,self.tablewidget)
+#        bd.tree_articulos_onItemClicked(item,self.tablewidget)
         #bd.tree_articulos_onItemClicked(self,item.text(1))
         
 
@@ -136,9 +137,14 @@ class Inicio_listas(QtWidgets.QMainWindow):
             self.bt_borrararticulo.setEnabled(True)
             self.bt_editararticulo.setEnabled(True)
             self.bt_nuevoarticulo.setEnabled(True)
-
-            bd.refresca(self.tree_articulos,self.articulos)
+            #self.tree_articulos.itemClicked.connect(self.tree_articulos_onItemClicked)
             self.tree_articulos.itemClicked.connect(self.tree_articulos_onItemClicked)
+                
+            bd.refresca(self.tree_articulos,self.articulos)
+            
+            
+            
+            #self.bt_nuevoarticulo.clicked.connect( lambda state, btn=self : bd.act_nuevoarticulo(btn))
         else:
             
             if (self.fr_inferior.isVisible()):
@@ -170,6 +176,9 @@ class Inicio_listas(QtWidgets.QMainWindow):
             #self.tree_apuntes.deleteLater()
             #self.tree_apuntes.destroy()
             
+    def tree_articulos_onItemClicked(self):
+        bd.tree_articulos_onItemClicked(self)
+    
             
     @QtCore.pyqtSlot(QtWidgets.QTableWidgetItem)    
     def tablewidget_on_item_changed(self, item: QtWidgets.QTableWidgetItem) -> None:

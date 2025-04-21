@@ -30,7 +30,14 @@ class bd:
             #print(messagebox.askyesno(message="¿Desea continuar?", title="Título"))
             raise Exception(error,"Error")
 
-
+    def ejecuta_delete(id):
+        try:
+            with Db_SQLITE() as cursor:
+                sql = "delete from t_articulos where id=?"
+                cursor.execute(sql,[id,])
+        except Exception as error:
+            #print(messagebox.askyesno(message="¿Desea continuar?", title="Título"))
+            raise Exception(error,"Error")
 
             
             
@@ -65,18 +72,22 @@ class bd:
             #dos.setText(1,str(registro[1]))
             
             uno.addChild(dos)
-            bd.tienehijos(tb_datos,level,dos,str(registro[0]))
+            bd.tienehijos(tb_datos,level,dos,str(registro[1]))
         
 
 
      
-    def tree_articulos_onItemClicked(item,tablewidget):
+    def tree_articulos_onItemClicked(self):
+            #item,tablewidget):
+                
+        item = self.findChild(QtWidgets.QTreeWidget, 'tree_articulos').currentItem()
+        tablewidget = self.findChild(QtWidgets.QTableWidget, 'tablewidget')
         
         if (tablewidget.rowCount()>0):
             tablewidget.setRowCount(0)
 
             
-        datos = bd.ejecuta_select("select id,nombre,padre,descripcion,palabras from t_articulos where id="+item.text(1))
+        datos = bd.ejecuta_select("select id,nombre,padre,descripcion,palabras from t_articulos where id="+item.text(1)+ " or padre='"+item.text(0)+"' order by padre,nombre")
         fila = 0
         for registro in datos:
             
@@ -120,19 +131,27 @@ class bd:
         tree_articulos = self.findChild(QtWidgets.QTreeWidget, 'tree_articulos')
         item = tree_articulos.currentItem()
         
+        sql = "select count(*) from t_articulos where nombre=?"
+        nombre = item.text(0)
+        cursor = bd.ejecuta_select_(sql,(nombre,))
+        i=0
+        while cursor[0][0]>0:
+            i = i + 1
+            nombre1 = nombre+"_"+str(i)
+            cursor = bd.ejecuta_select_(sql,(nombre1,))
 
         
         if not(item):
             padre = 'Null'
-            sql = "insert into t_articulos (nombre,padre) values ('NUEVO ARTÍCULO',"+padre+")"
+            sql = "insert into t_articulos (nombre,padre) values ('"+nombre1+"',"+padre+")"
         else:
             padre = item.text(0)
-            sql = "insert into t_articulos (nombre,padre) values ('NUEVO ARTÍCULO','"+padre+"')"
+            sql = "insert into t_articulos (nombre,padre) values ('"+nombre1+"','"+padre+"')"
         
         try:
             id = bd.ejecuta_insert(sql)
             uno = QTreeWidgetItem(item)
-            uno.setText(0,"NUEVO ARTÍCULO")
+            uno.setText(0,nombre1)
             uno.setText(1,str(id))
             if padre == 'Null':
                 self.findChild(QtWidgets.QTreeWidget, 'tree_articulos').insertTopLevelItem(0,uno)
@@ -157,6 +176,38 @@ class bd:
         print("editar articulo")
 
     def act_borrararticulo(self):
+
+     
+
+    #if resultado == True:
+
+        tree_articulos = self.findChild(QtWidgets.QTreeWidget, 'tree_articulos')
+        item = tree_articulos.currentItem()
+
+        sql = "select count(*) from t_articulos where padre=?"
+        cursor = bd.ejecuta_select_(sql,(item.text(0),))
+        if cursor[0][0]>0:
+            messagebox.showinfo(message="Este artículo incluye subartículos ", title="Artículo con hijos")
+            return
+        resultado = messagebox.askokcancel("Salir", 
+            "¿Borrar el artículo actual, "+item.text(0)+"?")
+        if not resultado:
+            return
+
+        id = item.text(1)
+        #bd.tienehijos
+        try:
+            bd.ejecuta_delete(id)
+            parent = item.parent()
+            if parent:
+                parent.removeChild(item)
+            else:
+                tree_articulos.takeTopLevelItem(tree_articulos.indexOfTopLevelItem(item))
+            
+        except Exception as error:
+            messagebox.showinfo(message=error, title="Error")
+
+
         print("borrar articulo")
 
             
