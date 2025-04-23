@@ -1,4 +1,6 @@
-# 21/04/25
+# 23/04/25
+# 23/04/25
+
 import sys, os
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget, QFrame, QHBoxLayout, QSplitter, QLineEdit, QFrame,QTreeWidget, QTreeWidgetItem,QMainWindow, QAction, QMenu
@@ -6,7 +8,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QFrame, QHBoxLayout, QSplitte
 from PyQt5 import uic
 from bd import bd
 from PyQt5.QtCore import Qt
-#from PyQt6.QtGui import QAction
+from datetime import datetime
 
 class Inicio_listas(QtWidgets.QMainWindow):
 
@@ -45,10 +47,12 @@ class Inicio_listas(QtWidgets.QMainWindow):
         self.action_nuevoarticulo.triggered.connect( lambda state, btn=self : bd.act_nuevoarticulo(btn))
 
         self.bt_editararticulo = self.findChild(QtWidgets.QPushButton, 'bt_editararticulo')
-        self.bt_editararticulo.clicked.connect(bd.act_editararticulo)
+        #self.bt_editararticulo.clicked.connect(bd.act_editararticulo)
+        self.bt_editararticulo.clicked.connect( lambda state, btn=self : bd.act_editararticulo(btn))
         
         self.action_editararticulo = self.findChild(QAction, 'action_editararticulo')
-        self.action_editararticulo.triggered.connect(bd.act_editararticulo)
+        #self.action_editararticulo.triggered.connect(bd.act_editararticulo)
+        self.action_editararticulo.triggered.connect( lambda state, btn=self : bd.act_editararticulo(btn))
 
         self.bt_borrararticulo = self.findChild(QtWidgets.QPushButton, 'bt_borrararticulo')
         self.bt_borrararticulo.clicked.connect( lambda state, btn=self : bd.act_borrararticulo(btn))
@@ -119,7 +123,9 @@ class Inicio_listas(QtWidgets.QMainWindow):
 
             self.splitter1.setSizes([300,300])
             self.hbox.addWidget(self.splitter1)
-            self.tablewidget.itemChanged.connect(self.tablewidget_on_item_changed) 
+            
+            #self.tablewidget.itemitemPressed.connect(self.tablewidget_on_item_pressed) 
+            #self.tablewidget.itemEntered.connect(self.tablewidget_on_item_entered) 
             self.tablewidget.itemClicked.connect(self.tablewidget_on_item_clicked) 
 
             
@@ -177,39 +183,47 @@ class Inicio_listas(QtWidgets.QMainWindow):
             #self.tree_apuntes.destroy()
             
     def tree_articulos_onItemClicked(self):
+        
         bd.tree_articulos_onItemClicked(self)
     
             
     @QtCore.pyqtSlot(QtWidgets.QTableWidgetItem)    
     def tablewidget_on_item_changed(self, item: QtWidgets.QTableWidgetItem) -> None:
-        #print(f"Se modificó el item en posición ({item.row()}, {item.column()}, {item.text()})") 
-        #print("Tree clicados")
-        #pass
-        """if (item == None):
-            item = self.tree_tablewidget.currentItem()
-            id = self.tree_apuntes.item(item.row(),0).text()
-        
-            bd.tablewidget_on_item_changed(item,self.tablewidget)
-            if item.column()==0:   
-                pass
-                #tb_datos = self.findChild(QtWidgets.QTableWidget, "tb_aplicaciones")
+    
+        if not item.text():
+               pass
+               print("Sin cambio")
+        else:
+            print(item.text() +" con cambio")
+            #now = datetime.now()
+            #f = now.strftime("%Y-%m-%d %H:%M:%S")
+            #print("item changed "+ f)
             
-            #bd.update_url(id,item.text())
-            if item.column()==1:   
-                pass
-            #tb_datos = self.findChild(QtWidgets.QTableWidget, "tb_aplicaciones")
-            #id = tb_datos.item(item.row(),0).text()
-            #bd.update_logo(id,item.text())           """
-
+            #self.tablewidget = self.findChild(QtWidgets.QTableWidget, 'tablewidget')
+            #self.tablewidget.item(row,0).text())
+            bd.act_editararticulo(item,self.tablewidget)
+            
         
-        #self.myframe = self.findChild(QFrame, 'fr_inferior')
-        #self.myframe.window(window)
+
+
+    @QtCore.pyqtSlot(QtWidgets.QTableWidgetItem)    
+    def tablewidget_on_item_pressed(self, item: QtWidgets.QTableWidgetItem) -> None:
+
+        now = datetime.now()
+        f = now.strftime("%Y-%m-%d %H:%M:%S")
+        print("item pressed "+ f)   
+
+    @QtCore.pyqtSlot(QtWidgets.QTableWidgetItem)    
+    def tablewidget_on_item_entered(self, item: QtWidgets.QTableWidgetItem) -> None:     
+        print("item entered")
 
     @QtCore.pyqtSlot(QtWidgets.QTableWidgetItem)    
     def tablewidget_on_item_clicked(self, item: QtWidgets.QTableWidgetItem) -> None:
         #print(f"Se modificó el item en posición ({item.row()}, {item.column()}, {item.text()})") 
         #print("Articulos clicados")
+        
         tablewidget = self.findChild(QtWidgets.QTableWidget, 'tablewidget')
+        tablewidget.itemChanged.connect(self.tablewidget_on_item_changed) 
         row = tablewidget.currentRow()
         print(tablewidget.item(row,0).text())
             #tablewidget.currentRow()

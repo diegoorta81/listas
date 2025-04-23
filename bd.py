@@ -1,3 +1,4 @@
+#23/04/25
 from PyQt5 import QtCore, QtGui, uic, QtWidgets
 from db_sqlite import Db_SQLITE
 from PyQt5.QtGui import QImage,QPixmap,QColor
@@ -39,8 +40,15 @@ class bd:
             #print(messagebox.askyesno(message="¿Desea continuar?", title="Título"))
             raise Exception(error,"Error")
 
-            
-            
+    def ejecuta_update(id,campo,valor):            
+        try:
+            with Db_SQLITE() as cursor:
+                sql = "update from t_articulos set ?=? where id=?"
+                data = (campo, valor, id)
+                cursor.execute(sql,data)
+        except Exception as error:
+            #print(messagebox.askyesno(message="¿Desea continuar?", title="Título"))
+            raise Exception(error,"Error")
 
     def refresca(tb_datos,datos):
         tb_datos.setHeaderLabels(['Artículos'])
@@ -172,14 +180,19 @@ class bd:
         
         
     
-    def act_editararticulo(self):
-        print("editar articulo")
+    def act_editararticulo(item, tablewidget):
+        columna = item.column()
+        fila = item.row()
+        id = tablewidget.item(fila,0).text()
+        if columna==1:
+            bd.ejecuta_update(id,"nombre",item.text())
+        
+
+        
+        
+        print("editar articulo: "+ item.text()+ " - columna: "+str(columna)+ " - fila: "+str(fila) )
 
     def act_borrararticulo(self):
-
-     
-
-    #if resultado == True:
 
         tree_articulos = self.findChild(QtWidgets.QTreeWidget, 'tree_articulos')
         item = tree_articulos.currentItem()
@@ -208,7 +221,7 @@ class bd:
             messagebox.showinfo(message=error, title="Error")
 
 
-        print("borrar articulo")
+
 
             
             
@@ -245,7 +258,6 @@ class bd:
     def tablewidget_on_item_clicked(self,id_articulo):
         sql = "select archivo,descripcion from t_archivos where id_padre=?"
         cursor = bd.ejecuta_select_(sql,(id_articulo,))
-        #print(cursor[0][1] + "buen camino")
         tablewidget_img = self.findChild(QtWidgets.QTableWidget, 'tablewidget_img')
         tablewidget_img.setSortingEnabled(True)
         tablewidget_img.setRowCount(0)
